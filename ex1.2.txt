@@ -1,0 +1,255 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *head = NULL;
+
+// Insert element at the end
+void insert(int value)
+{
+    struct Node *newNode, *temp;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL)
+    {
+        head = newNode;
+    }
+    else
+    {
+        temp = head;
+
+        while (temp->next != NULL)
+            temp = temp->next;
+
+        temp->next = newNode;
+    }
+
+    printf("Element inserted successfully.\n");
+}
+
+// Delete element
+void deleteElement(int value)
+{
+    struct Node *temp = head;
+    struct Node *prev = NULL;
+
+    if (head == NULL)
+    {
+        printf("List is empty!\n");
+        return;
+    }
+
+    if (head->data == value)
+    {
+        head = head->next;
+        free(temp);
+        printf("Element deleted successfully.\n");
+        return;
+    }
+
+    while (temp != NULL && temp->data != value)
+    {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL)
+    {
+        printf("Element not found!\n");
+        return;
+    }
+
+    prev->next = temp->next;
+    free(temp);
+
+    printf("Element deleted successfully.\n");
+}
+
+// Search element
+void search(int value)
+{
+    struct Node *temp = head;
+    int position = 0;
+
+    while (temp != NULL)
+    {
+        if (temp->data == value)
+        {
+            printf("Element found at position %d.\n", position);
+            return;
+        }
+
+        temp = temp->next;
+        position++;
+    }
+
+    printf("Element not found!\n");
+}
+
+// Display list
+void display()
+{
+    struct Node *temp = head;
+
+    if (head == NULL)
+    {
+        printf("List is empty!\n");
+        return;
+    }
+
+    printf("List: ");
+
+    while (temp != NULL)
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("NULL\n");
+}
+
+int main()
+{
+    int choice, value;
+
+    while (1)
+    {
+        printf("\n--- LINKED LIST IMPLEMENTATION OF LIST ADT ---\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Search\n");
+        printf("4. Display\n");
+        printf("5. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insert(value);
+                break;
+
+            case 2:
+                printf("Enter value to delete: ");
+                scanf("%d", &value);
+                deleteElement(value);
+                break;
+
+            case 3:
+                printf("Enter value to search: ");
+                scanf("%d", &value);
+                search(value);
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                printf("Program terminated.\n");
+                exit(0);
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
+sample output:
+--- LINKED LIST IMPLEMENTATION OF LIST ADT ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+
+Enter your choice: 1
+Enter value: 10
+Element inserted successfully.
+
+--- LINKED LIST IMPLEMENTATION OF LIST ADT ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+
+Enter your choice: 1
+Enter value: 20
+Element inserted successfully.
+
+--- LINKED LIST IMPLEMENTATION OF LIST ADT ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+
+Enter your choice: 1
+Enter value: 30
+Element inserted successfully.
+
+--- LINKED LIST IMPLEMENTATION OF LIST ADT ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+
+Enter your choice: 4
+List: 10 -> 20 -> 30 -> NULL
+
+--- LINKED LIST IMPLEMENTATION OF LIST ADT ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+
+Enter your choice: 3
+Enter value to search: 20
+Element found at position 1.
+
+--- LINKED LIST IMPLEMENTATION OF LIST ADT ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+
+Enter your choice: 2
+Enter value to delete: 20
+Element deleted successfully.
+
+--- LINKED LIST IMPLEMENTATION OF LIST ADT ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+
+Enter your choice: 4
+List: 10 -> 30 -> NULL
+
+--- LINKED LIST IMPLEMENTATION OF LIST ADT ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+
+Enter your choice: 5
+Program terminated.

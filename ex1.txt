@@ -1,0 +1,309 @@
+#include <stdio.h>
+
+#define MAX 100
+
+int list[MAX];
+int size = 0;
+
+void insert(int pos, int value)
+{
+    int i;
+
+    if (size == MAX)
+    {
+        printf("List is full!\n");
+        return;
+    }
+
+    if (pos < 0 || pos > size)
+    {
+        printf("Invalid position!\n");
+        return;
+    }
+
+    for (i = size; i > pos; i--)
+        list[i] = list[i - 1];
+
+    list[pos] = value;
+    size++;
+
+    printf("Element inserted successfully.\n");
+}
+
+void deleteElement(int pos)
+{
+    int i;
+
+    if (size == 0)
+    {
+        printf("List is empty!\n");
+        return;
+    }
+
+    if (pos < 0 || pos >= size)
+    {
+        printf("Invalid position!\n");
+        return;
+    }
+
+    for (i = pos; i < size - 1; i++)
+        list[i] = list[i + 1];
+
+    size--;
+
+    printf("Element deleted successfully.\n");
+}
+
+void search(int value)
+{
+    int i;
+
+    for (i = 0; i < size; i++)
+    {
+        if (list[i] == value)
+        {
+            printf("Element found at position %d.\n", i);
+            return;
+        }
+    }
+
+    printf("Element not found.\n");
+}
+
+void display()
+{
+    int i;
+
+    if (size == 0)
+    {
+        printf("List is empty!\n");
+        return;
+    }
+
+    printf("List: ");
+
+    for (i = 0; i < size; i++)
+        printf("%d ", list[i]);
+
+    printf("\n");
+}
+
+int main()
+{
+    int choice, pos, value;
+
+    while (1)
+    {
+        printf("\n--- LIST ADT USING ARRAY ---\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Search\n");
+        printf("4. Display\n");
+        printf("5. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter position: ");
+                scanf("%d", &pos);
+
+                printf("Enter value: ");
+                scanf("%d", &value);
+
+                insert(pos, value);
+                break;
+
+            case 2:
+                printf("Enter position: ");
+                scanf("%d", &pos);
+
+                deleteElement(pos);
+                break;
+
+            case 3:
+                printf("Enter value to search: ");
+                scanf("%d", &value);
+
+                search(value);
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                printf("Program terminated.\n");
+                return 0;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+}
+sample output:
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 1
+
+Enter position: 0
+Enter value: 10
+Element inserted successfully.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 1
+
+Enter position: 1
+Enter value: 20
+Element inserted successfully.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 1
+
+Enter position: 2
+Enter value: 30
+Element inserted successfully.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 4
+List: 10 20 30
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 3
+Enter value to search: 20
+Element found at position 1.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 2
+Enter position: 1
+Element deleted successfully.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 4
+List: 10 30
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 5
+Program terminated.--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 1
+
+Enter position: 0
+Enter value: 10
+Element inserted successfully.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 1
+
+Enter position: 1
+Enter value: 20
+Element inserted successfully.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 1
+
+Enter position: 2
+Enter value: 30
+Element inserted successfully.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 4
+List: 10 20 30
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 3
+Enter value to search: 20
+Element found at position 1.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 2
+Enter position: 1
+Element deleted successfully.
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 4
+List: 10 30
+
+--- LIST ADT USING ARRAY ---
+1. Insert
+2. Delete
+3. Search
+4. Display
+5. Exit
+Enter your choice: 5
+Program terminated.

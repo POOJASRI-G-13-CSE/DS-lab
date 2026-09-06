@@ -1,0 +1,211 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *left;
+    struct Node *right;
+};
+
+// Create a new node
+struct Node* createNode(int value)
+{
+    struct Node *newNode;
+
+    newNode = (struct Node*)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
+
+    return newNode;
+}
+
+// Insert a node into BST
+struct Node* insert(struct Node *root, int value)
+{
+    if (root == NULL)
+        return createNode(value);
+
+    if (value < root->data)
+        root->left = insert(root->left, value);
+    else if (value > root->data)
+        root->right = insert(root->right, value);
+
+    return root;
+}
+
+// Inorder traversal
+void inorder(struct Node *root)
+{
+    if (root != NULL)
+    {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+// Preorder traversal
+void preorder(struct Node *root)
+{
+    if (root != NULL)
+    {
+        printf("%d ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+// Postorder traversal
+void postorder(struct Node *root)
+{
+    if (root != NULL)
+    {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d ", root->data);
+    }
+}
+
+// Search for an element
+struct Node* search(struct Node *root, int value)
+{
+    if (root == NULL || root->data == value)
+        return root;
+
+    if (value < root->data)
+        return search(root->left, value);
+
+    return search(root->right, value);
+}
+
+int main()
+{
+    struct Node *root = NULL;
+    struct Node *result;
+    int choice, value;
+
+    while (1)
+    {
+        printf("\n--- BINARY SEARCH TREE ---\n");
+        printf("1. Insert\n");
+        printf("2. Inorder Traversal\n");
+        printf("3. Preorder Traversal\n");
+        printf("4. Postorder Traversal\n");
+        printf("5. Search\n");
+        printf("6. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+
+                root = insert(root, value);
+
+                printf("Element inserted successfully.\n");
+                break;
+
+            case 2:
+                printf("Inorder Traversal: ");
+                inorder(root);
+                printf("\n");
+                break;
+
+            case 3:
+                printf("Preorder Traversal: ");
+                preorder(root);
+                printf("\n");
+                break;
+
+            case 4:
+                printf("Postorder Traversal: ");
+                postorder(root);
+                printf("\n");
+                break;
+
+            case 5:
+                printf("Enter value to search: ");
+                scanf("%d", &value);
+
+                result = search(root, value);
+
+                if (result != NULL)
+                    printf("Element %d found in BST.\n", value);
+                else
+                    printf("Element %d not found in BST.\n", value);
+
+                break;
+
+            case 6:
+                printf("Program terminated.\n");
+                exit(0);
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
+sample output:
+--- BINARY SEARCH TREE ---
+1. Insert
+2. Inorder Traversal
+3. Preorder Traversal
+4. Postorder Traversal
+5. Search
+6. Exit
+
+Enter your choice: 1
+Enter value: 50
+Element inserted successfully.
+
+Enter your choice: 1
+Enter value: 30
+Element inserted successfully.
+
+Enter your choice: 1
+Enter value: 70
+Element inserted successfully.
+
+Enter your choice: 1
+Enter value: 20
+Element inserted successfully.
+
+Enter your choice: 1
+Enter value: 40
+Element inserted successfully.
+
+Enter your choice: 1
+Enter value: 60
+Element inserted successfully.
+
+Enter your choice: 1
+Enter value: 80
+Element inserted successfully.
+
+Enter your choice: 2
+Inorder Traversal: 20 30 40 50 60 70 80
+
+Enter your choice: 3
+Preorder Traversal: 50 30 20 40 70 60 80
+
+Enter your choice: 4
+Postorder Traversal: 20 40 30 60 80 70 50
+
+Enter your choice: 5
+Enter value to search: 60
+Element 60 found in BST.
+
+Enter your choice: 5
+Enter value to search: 90
+Element 90 not found in BST.
+
+Enter your choice: 6
+Program terminated.

@@ -1,0 +1,178 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 10
+
+struct PriorityQueue
+{
+    int data;
+    int priority;
+};
+
+struct PriorityQueue pq[MAX];
+int size = 0;
+
+// Insert element
+void insert(int value, int priority)
+{
+    int i;
+
+    if (size == MAX)
+    {
+        printf("Priority Queue is full!\n");
+        return;
+    }
+
+    pq[size].data = value;
+    pq[size].priority = priority;
+    size++;
+
+    // Sort according to priority
+    for (i = size - 1; i > 0; i--)
+    {
+        if (pq[i].priority < pq[i - 1].priority)
+        {
+            struct PriorityQueue temp = pq[i];
+            pq[i] = pq[i - 1];
+            pq[i - 1] = temp;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    printf("Element %d inserted with priority %d.\n", value, priority);
+}
+
+// Delete highest priority element
+void deleteElement()
+{
+    int i;
+
+    if (size == 0)
+    {
+        printf("Priority Queue is empty!\n");
+        return;
+    }
+
+    printf("Element %d with priority %d deleted.\n",
+           pq[0].data, pq[0].priority);
+
+    for (i = 0; i < size - 1; i++)
+    {
+        pq[i] = pq[i + 1];
+    }
+
+    size--;
+}
+
+// Display priority queue
+void display()
+{
+    int i;
+
+    if (size == 0)
+    {
+        printf("Priority Queue is empty!\n");
+        return;
+    }
+
+    printf("\nPriority Queue:\n");
+
+    printf("Element\tPriority\n");
+
+    for (i = 0; i < size; i++)
+    {
+        printf("%d\t%d\n", pq[i].data, pq[i].priority);
+    }
+}
+
+int main()
+{
+    int choice, value, priority;
+
+    while (1)
+    {
+        printf("\n--- PRIORITY QUEUE ---\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+
+                printf("Enter priority: ");
+                scanf("%d", &priority);
+
+                insert(value, priority);
+                break;
+
+            case 2:
+                deleteElement();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                printf("Program terminated.\n");
+                exit(0);
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
+sample output:
+--- PRIORITY QUEUE ---
+1. Insert
+2. Delete
+3. Display
+4. Exit
+
+Enter your choice: 1
+Enter value: 10
+Enter priority: 3
+Element 10 inserted with priority 3.
+
+Enter your choice: 1
+Enter value: 20
+Enter priority: 1
+Element 20 inserted with priority 1.
+
+Enter your choice: 1
+Enter value: 30
+Enter priority: 2
+Element 30 inserted with priority 2.
+
+Enter your choice: 3
+
+Priority Queue:
+Element  Priority
+20        1
+30        2
+10        3
+
+Enter your choice: 2
+Element 20 with priority 1 deleted.
+
+Enter your choice: 3
+
+Priority Queue:
+Element  Priority
+30        2
+10        3
+
+Enter your choice: 4
+Program terminated.
